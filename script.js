@@ -335,208 +335,90 @@ const places = [
   },
 ];
 
-// ===== SELECT ALL THE HTML ELEMENTS =====
-// "Hey JS, here are the elements you'll be working with"
+// boot sequence
+setTimeout(() => {
+  document.getElementById("b0").classList.add("on");
+  setTimeout(() => {
+    document.getElementById("b1").classList.add("on");
+  }, 200);
+  setTimeout(() => {
+    document.getElementById("b2").classList.add("on");
+  }, 400);
+  setTimeout(() => {
+    document.getElementById("b3").classList.add("on");
+  }, 600);
+  setTimeout(() => {
+    document.getElementById("b4").classList.add("on");
+  }, 800);
+}, 2000);
 
-const sectors = document.querySelectorAll(".sector");
-const sectorCard = document.getElementById("sector-card");
-const placesSection = document.getElementById("panel-middle");
-
-// ===== STEP 2: LISTEN FOR SECTOR CLICKS =====
-// querySelectorAll gives us ALL sectors as a list
-// so we loop through them and add a click listener to each one
-
-sectors.forEach((sector) => {
-  sector.addEventListener("click", () => {
-    // get the sector name from the data-sector attribute
-    // remember in HTML - data-sector="1", data-sector="Centru"
-
-    const sectorName = sector.dataset.sector;
-
-    // log
-
-    console.log("Clicked sector:", sectorName);
-    // remove active class from all sectors
-    sectors.forEach((s) => s.classList.remove("active"));
-    // add active class
-    sector.classList.add("active");
-    showSector(sectorName);
-  });
+// enter button
+document.getElementById("enterbtn").addEventListener("click", () => {
+  enterApp();
 });
 
-// FUNCTION: SHOW SECTOR INFO
-// This runs every time a sector is clicked
-// It updates the sector card with info about that sector
-
-function showSector(sectorName) {
-  // filter the places array to get only the ones in the clicked sector
-
-  const sectorPlaces = places.filter((place) => place.sector === sectorName);
-
-  // update the sector card HTML with the sector name and number of places
-
-  sectorCard.innerHTML = `
-  <div class="sector-card-title">
-  ${sectorName === "Centru" ? "Centru" : "Sector " + sectorName}
-  </div>
-  <div class="sector-card-stats">
-  <div class="stat">
-  <span class="stat-value">${sectorPlaces.length}</span>
-  <span class="stat-label">Places</span>
-  </div>
-  <div class="stat">
-  <span class="stat-value">★ ${getAvgRating(sectorPlaces)}</span>
-  <span class="stat-label">Avg Rating</span>
-  </div> 
-  </div> 
-`;
-
-  // show the places section
-
-  placesSection.classList.remove("hidden");
-
-  // render the place cards
-
-  renderPlaces(sectorPlaces);
+// enterApp function
+function enterApp() {
+  document.getElementById("intro").classList.add("hidden");
+  document.querySelector(".top-nav").classList.remove("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  initMap();
+  initParticles();
 }
 
-// calculate avg rating function
+function initMap() {
+  const canvas = document.getElementById("mapcanvas");
+  const wrapper = document.getElementById("map-wrapper");
+  canvas.width = wrapper.offsetWidth;
+  canvas.height = wrapper.offsetHeight;
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width;
+  const H = canvas.height;
 
-function getAvgRating(places) {
-  if (places.length === 0) return "-";
-  const total = places.reduce((sum, place) => sum + place.rating, 0);
-  return (total / places.length).toFixed(1);
-}
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, W, H);
 
-// function - render place cards, takes an array of places and builds the HTML cards
+  ctx.strokeStyle = "rgba(0,255,180,0.04)";
+  ctx.lineWidth = 1;
 
-function renderPlaces(placesToShow) {
-  // find the grid element inside the places section
-
-  const placesGrid = document.getElementById("places-grid");
-
-  // clear the grid, remove any prev show cards
-
-  placesGrid.innerHTML = "";
-
-  // loop through each place and create a card
-
-  placesToShow.forEach((place) => {
-    // create a div for the card
-    const card = document.createElement("div");
-    card.className = "place-card";
-
-    // fill it with content using template literals
-    card.innerHTML = `
-    <div class="place-card-name">${place.name}</div>
-    <div class="place-card-meta">
-    <span>${place.category}</span>
-    <span>·</span>
-    <span class="place-card-rating">★ ${place.rating}</span>
-    <span>·</span>
-    <span class="crowd-${place.crowd.toLowerCase()}">${place.crowd}</span>
-    </div>
-    <div class="place-card-address">${place.address}</div>
-    <div class="place-card-hours">${place.hours}</div>
-    `;
-    // add the card to the grid
-    card.addEventListener("click", () => {
-      // remove active from all cards
-      document
-        .querySelectorAll(".place-card")
-        .forEach((c) => c.classList.remove("active"));
-      // add active to clicked card
-      card.classList.add("active");
-      // show the detail
-      showDetail(place);
-    });
-    placesGrid.appendChild(card);
-  });
-}
-
-// ===== FUNCTION: SHOW PLACE DETAIL =====
-// This runs when a place card is clicked
-// It fills the right panel with full place info
-
-function showDetail(place) {
-  // find thr right panel element
-  const panelRight = document.getElementById("panel-right");
-
-  // build the crowd dots - 8
-  // filled dots = crowd level (chill, medium, full)
-  const crowdLevels = { Chill: 3, Medium: 5, Full: 7 };
-  const filledDots = crowdLevels[place.crowd] || 0;
-  let dotsHTML = "";
-  for (let i = 0; i < 8; i++) {
-    if (i < filledDots) {
-      dotsHTML += `<div class="crowd-dot filled"></div>`;
-    } else {
-      dotsHTML += `<div class="crowd-dot empty"></div>`;
-    }
+  for (let x = 0; x < W; x += 40) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, H);
+    ctx.stroke();
   }
-  // Build the best time bars — 12 bars representing hours
-  // We highlight the peak hours based on bestTime
-  const barHeights = [
-    15, 10, 10, 15, 20, 35, 55, 70, 60, 85, 100, 90, 70, 50, 40, 55, 75, 90, 95,
-    85, 60, 40, 25, 15,
+
+  for (let y = 0; y < H; y += 40) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  }
+
+  const roads = [
+    [
+      [0.2, 0.5],
+      [0.8, 0.5],
+    ],
+    [
+      [0.5, 0.1],
+      [0.5, 0.9],
+    ],
+    [
+      [0.1, 0.2],
+      [0.9, 0.75],
+    ],
+    [
+      [0.15, 0.8],
+      [0.85, 0.25],
+    ],
+    [
+      [0.3, 0.1],
+      [0.7, 0.9],
+    ],
+    [
+      [0.1, 0.4],
+      [0.9, 0.6],
+    ],
   ];
-  let barsHTML = "";
-  barHeights.forEach((height, i) => {
-    const isPeak = height > 70;
-    const isMedium = height > 40 && height <= 70;
-    const barClass = isPeak ? "peak" : isMedium ? "medium" : "";
-    barsHTML += `<div class="bt-bar ${barClass}" style="height:${height}%"></div>`;
-  });
-
-  // Google Maps directions link
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.address + " Bucharest")}`;
-
-  // Fill the right panel with all the detail content
-  panelRight.innerHTML = `
-    <div class="detail-hero" style="background: ${place.gradient}">
-      <div class="detail-hero-overlay"></div>
-      <div class="detail-hero-content">
-        <span class="detail-category-badge">${place.category}</span>
-        <div class="detail-name">${place.name}</div>
-      </div>
-    </div>
-
-    <div class="detail-body">
-
-      <div class="detail-meta-row">
-        <div class="detail-meta-item">
-          <span class="detail-meta-icon">★</span>
-          <span class="detail-meta-text">${place.rating} rating</span>
-        </div>
-        <div class="detail-meta-item">
-          <span class="detail-meta-icon">◷</span>
-          <span class="detail-meta-text">${place.hours}</span>
-        </div>
-        <div class="detail-meta-item" style="grid-column: span 2">
-          <span class="detail-meta-icon">⌖</span>
-          <span class="detail-meta-text">${place.address}</span>
-        </div>
-      </div>
-
-      <p class="detail-desc">${place.description}</p>
-
-      <div class="detail-section-title">Crowd level — ${place.crowd} now</div>
-      <div class="crowd-dots">${dotsHTML}</div>
-
-      <div class="detail-section-title">Best time to go — ${place.bestTime}</div>
-      <div class="best-time-bars">${barsHTML}</div>
-      <div class="bt-labels">
-        <span class="bt-label">06:00</span>
-        <span class="bt-label">12:00</span>
-        <span class="bt-label">18:00</span>
-        <span class="bt-label">24:00</span>
-        <span class="bt-label">06:00</span>
-      </div>
-
-      <a class="btn-directions" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">
-        ↗ Get directions / Obține direcții
-      </a>
-
-    </div>
-  `;
 }

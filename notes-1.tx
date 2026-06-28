@@ -4,3 +4,42 @@
 // update filter buttons UI
 // think about explore option and favorite places (log in with google account, save favorites in local storage or backend?)
 // get API key for google maps and add map to the right panel - insights for busy hours, directions, photos, reviews, etc. (can be added later as a stretch goal)
+
+
+document.getElementById("b4").classList.add("on"); 
+
+    <div id="intro">
+      <div class="scan-line"></div>
+      <div class="glitch-title">BUCHAREST</div>
+      <div class="sub-text">CITY EXPLORER v2.0</div>
+      <div class="boot-lines">
+        <div class="boot-line" id="b0">&gt; INITIALIZING MAP ENGINE...</div>
+        <div class="boot-line" id="b1">&gt; LOADING LANDMARK DATABASE...</div>
+        <div class="boot-line" id="b2">&gt; CALIBRATING COORDINATES...</div>
+        <div class="boot-line" id="b3">&gt; SCANNING CITY GRID...</div>
+        <div class="boot-line" id="b4">&gt; ALL SYSTEMS READY.</div>
+      </div>
+      <button class="enter-btn" id="enterbtn">[ ENTER CITY ]</button>
+    </div>
+
+     <!-- TOP NAV -->
+    <nav class="top-nav hidden">
+      <div class="nav-logo">LIVEBUCHAREST</div>
+      <div class="nav-links">
+        <span class="active">Map</span>
+        <span>Explore</span>
+        <span>Favorites</span>
+      </div>
+    </nav>
+
+    document.querySelector(".top-nav")
+
+
+function enterApp() {
+document.getElementById("intro").classList.add("hidden");
+document.querySelector(".top-nav").classList.remove("hidden");
+document.getElementById("app").classList.remove("hidden");
+}
+document.getElementById("enterbtn").addEventListener("click", () => {
+enterApp();
+});

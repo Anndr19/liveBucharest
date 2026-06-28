@@ -5,8 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LiveBucharest</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
   </head>
   <body>
+    <div id="intro">
+      <div class="scan-line"></div>
+      <div class="glitch-title">BUCHAREST</div>
+      <div class="sub-text">CITY EXPLORER v2.0</div>
+      <div class="boot-lines">
+        <div class="boot-line" id="b0">&gt; INITIALIZING MAP ENGINE...</div>
+        <div class="boot-line" id="b1">&gt; LOADING LANDMARK DATABASE...</div>
+        <div class="boot-line" id="b2">&gt; CALIBRATING COORDINATES...</div>
+        <div class="boot-line" id="b3">&gt; SCANNING CITY GRID...</div>
+        <div class="boot-line" id="b4">&gt; ALL SYSTEMS READY.</div>
+      </div>
+      <button class="enter-btn" id="enterbtn">[ ENTER CITY ]</button>
+    </div>
+
     <!-- TOP NAV -->
     <nav class="top-nav">
       <div class="nav-logo">LIVEBUCHAREST</div>
@@ -19,111 +37,65 @@
 
     <!-- 3-COLUMN APP -->
     <div class="app">
-      <!-- LEFT PANEL: MAP + SECTOR CARD -->
-      <div class="panel-left">
-        <div class="panel-left-header">
-          <h1>Bucharest</h1>
-          <p>Explore the city like a local · Explorează orașul ca un local</p>
+      <!-- LEFT PANEL: LANDMARK MAP -->
+      <div class="panel-left" id="panel-left">
+        <div id="map-wrapper">
+          <canvas id="mapcanvas"></canvas>
+          <canvas id="particles"></canvas>
+
+          <div class="landmark" id="lm0" data-index="0">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-building-arch"></i></div>
+            <div class="lm-label">PARLIAMENT</div>
+          </div>
+
+          <div class="landmark" id="lm1" data-index="1">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-arch"></i></div>
+            <div class="lm-label">TRIUMPH ARC</div>
+          </div>
+
+          <div class="landmark" id="lm2" data-index="2">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-building-church"></i></div>
+            <div class="lm-label">STAVROPOLEOS</div>
+          </div>
+
+          <div class="landmark" id="lm3" data-index="3">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-books"></i></div>
+            <div class="lm-label">CARTURESTI</div>
+          </div>
+
+          <div class="landmark" id="lm4" data-index="4">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-trees"></i></div>
+            <div class="lm-label">HERASTRAU</div>
+          </div>
+
+          <div class="landmark" id="lm5" data-index="5">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-garden-cart"></i></div>
+            <div class="lm-label">CISMIGIU</div>
+          </div>
+
+          <div class="landmark" id="lm6" data-index="6">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-building-museum"></i></div>
+            <div class="lm-label">NAT. MUSEUM</div>
+          </div>
+
+          <div class="landmark" id="lm7" data-index="7">
+            <div class="lm-pulse"></div>
+            <div class="lm-icon"><i class="ti ti-beer"></i></div>
+            <div class="lm-label">CARU CU BERE</div>
+          </div>
         </div>
 
-        <div class="map-wrapper" id="map-wrapper">
-          <svg
-            id="bucharest-map"
-            viewBox="0 0 300 270"
-            xmlns="http://www.w3.org/2000/svg"
-            style="width: 100%; height: 100%; display: block; min-height: 300px"
-          >
-            <path
-              id="s1"
-              class="sector"
-              data-sector="1"
-              d="M 40,15 L 160,15 L 158,38 L 132,58 L 118,85 L 98,100 L 78,104 L 56,95 L 32,75 L 22,48 Z"
-              fill="#0F6E56"
-              fill-opacity="0.6"
-              stroke="#5DCAA5"
-              stroke-width="1"
-            />
-            <text x="88" y="58" class="sector-text">SECTOR 1</text>
-
-            <path
-              id="s2"
-              class="sector"
-              data-sector="2"
-              d="M 160,15 L 265,15 L 272,48 L 262,78 L 244,98 L 218,108 L 192,112 L 170,104 L 152,88 L 132,58 L 158,38 Z"
-              fill="#185FA5"
-              fill-opacity="0.6"
-              stroke="#85B7EB"
-              stroke-width="1"
-            />
-            <text x="210" y="62" class="sector-text">SECTOR 2</text>
-
-            <path
-              id="s6"
-              class="sector"
-              data-sector="6"
-              d="M 8,65 L 22,48 L 32,75 L 56,95 L 24,100 L 14,125 L 6,100 Z"
-              fill="#534AB7"
-              fill-opacity="0.6"
-              stroke="#AFA9EC"
-              stroke-width="1"
-            />
-            <text x="20" y="88" class="sector-text" font-size="7">S6</text>
-
-            <path
-              id="s-centru"
-              class="sector"
-              data-sector="Centru"
-              d="M 98,100 L 118,85 L 152,88 L 170,104 L 175,125 L 164,148 L 142,158 L 118,158 L 100,148 L 90,128 Z"
-              fill="#854F0B"
-              fill-opacity="0.7"
-              stroke="#E8D5A3"
-              stroke-width="1.5"
-            />
-            <text x="132" y="128" class="sector-text">CENTRU</text>
-
-            <path
-              id="s3"
-              class="sector"
-              data-sector="3"
-              d="M 170,104 L 192,112 L 218,108 L 244,98 L 262,78 L 272,48 L 278,118 L 268,158 L 244,185 L 218,195 L 198,190 L 178,172 L 164,148 L 175,125 Z"
-              fill="#993C1D"
-              fill-opacity="0.6"
-              stroke="#F0997B"
-              stroke-width="1"
-            />
-            <text x="225" y="145" class="sector-text">SECTOR 3</text>
-
-            <path
-              id="s4"
-              class="sector"
-              data-sector="4"
-              d="M 100,148 L 118,158 L 142,158 L 164,148 L 178,172 L 198,190 L 204,218 L 188,240 L 158,252 L 122,254 L 96,244 L 78,222 L 76,198 L 86,175 Z"
-              fill="#633806"
-              fill-opacity="0.6"
-              stroke="#FAC775"
-              stroke-width="1"
-            />
-            <text x="140" y="208" class="sector-text">SECTOR 4</text>
-
-            <path
-              id="s5"
-              class="sector"
-              data-sector="5"
-              d="M 56,95 L 78,104 L 98,100 L 90,128 L 100,148 L 86,175 L 76,198 L 52,200 L 28,180 L 16,152 L 14,125 L 24,100 Z"
-              fill="#72243E"
-              fill-opacity="0.6"
-              stroke="#ED93B1"
-              stroke-width="1"
-            />
-            <text x="56" y="150" class="sector-text">SECTOR 5</text>
-          </svg>
-        </div>
-
-        <div class="sector-card" id="sector-card">
-          <p class="sector-card-default">Click a sector to explore</p>
+        <div id="disc-bar">
+          DISCOVERED <span id="disc-count">0</span>/8 LANDMARKS
         </div>
       </div>
-
       <!-- MIDDLE PANEL: PLACES LIST -->
       <div class="panel-middle hidden" id="panel-middle">
         <div class="panel-middle-header">
@@ -149,6 +121,47 @@
       <div class="panel-right" id="panel-right">
         <div class="panel-right-empty" id="panel-right-empty">
           <p>Select a place to see details</p>
+        </div>
+      </div>
+      <!-- DISCOVERY CARD -->
+      <div id="card-overlay">
+        <div id="disc-card">
+          <button id="close-btn">×</button>
+          <div class="card-top">
+            <div class="card-type" id="c-type">CULTURE</div>
+            <div class="card-stars" id="c-stars">★★★★★</div>
+          </div>
+          <div class="card-body">
+            <div class="card-icon-row">
+              <div class="card-big-icon">
+                <i id="c-icon" class="ti ti-building-arch"></i>
+              </div>
+              <div>
+                <div class="card-name" id="c-name">Parliament Palace</div>
+                <div class="card-area" id="c-area">SECTOR 5</div>
+              </div>
+            </div>
+            <div class="card-desc" id="c-desc">Description goes here.</div>
+            <div class="card-stats">
+              <div class="stat-box">
+                <div class="stat-lbl">RATING</div>
+                <div class="stat-val" id="c-rating">4.8</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">CROWD</div>
+                <div class="stat-val" id="c-crowd">HIGH</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">BEST TIME</div>
+                <div class="stat-val" id="c-time">MORNING</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-lbl">CATEGORY</div>
+                <div class="stat-val" id="c-cat">CULTURE</div>
+              </div>
+            </div>
+            <button class="card-btn">[ EXPLORE NEARBY ]</button>
+          </div>
         </div>
       </div>
     </div>

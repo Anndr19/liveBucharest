@@ -481,3 +481,27 @@ function initLandmarks() {
     landmark.style.top = `${pos[1]}%`;
   });
 }
+
+//lm${i}`)
+
+function showCard(index) {
+  const landmark = landmarks[index];
+  document.getElementById("c-name").textContent = landmark.name;
+  document.getElementById("c-area").textContent = landmark.area;
+  document.getElementById("c-type").textContent = landmark.type;
+  document.getElementById("c-desc").textContent = landmark.desc;
+  document.getElementById("c-rating").textContent = landmark.rating;
+  document.getElementById("c-crowd").textContent = landmark.crowd;
+  document.getElementById("c-time").textContent = landmark.bestTime;
+  document.getElementById("c-cat").textContent = landmark.type;
+  document.getElementById("c-icon").className = `ti ${landmark.icon}`;
+  document.getElementById("c-stars").textContent =
+    "★".repeat(landmark.stars) + "☆".repeat(5 - landmark.stars);
+  document.getElementById("disc-card").classList.add("show");
+}
+
+for (let i = 0; i < 8; i++) {
+  document.getElementById(`lm${i}`).addEventListener("click", () => {
+    showCard(i);
+  });
+}

@@ -632,12 +632,6 @@ body {
 }
 
 #disc-card {
-  pointer-events: all;
-  width: 280px;
-  background: #000;
-  border: 1px solid #00ffb4;
-  border-radius: 4px;
-  position: relative;
   transform: scale(0) rotateY(90deg);
   opacity: 0;
   transition:

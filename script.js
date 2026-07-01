@@ -364,6 +364,7 @@ function enterApp() {
   document.getElementById("app").classList.remove("hidden");
   initMap();
   initParticles();
+  initLandmarks();
 }
 
 function initMap() {
@@ -461,4 +462,22 @@ function initParticles() {
     requestAnimationFrame(draw);
   }
   draw();
+}
+
+function initLandmarks() {
+  const positions = [
+    [30, 70], // 0 - Parliament
+    [55, 20], // 1 - Triumph Arc
+    [60, 55], // 2 - Stavropoleos
+    [45, 48], // 3 - Carturesti
+    [70, 30], // 4 - Herastrau
+    [25, 45], // 5 - Cismigiu
+    [50, 62], // 6 - National Museum
+    [65, 72], // 7 - Caru cu Bere
+  ];
+  positions.forEach((pos, index) => {
+    const landmark = document.getElementById(`lm${index}`);
+    landmark.style.left = `${pos[0]}%`;
+    landmark.style.top = `${pos[1]}%`;
+  });
 }

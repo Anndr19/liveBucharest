@@ -380,14 +380,12 @@ function initMap() {
 
   ctx.strokeStyle = "rgba(0,255,180,0.04)";
   ctx.lineWidth = 1;
-
   for (let x = 0; x < W; x += 40) {
     ctx.beginPath();
     ctx.moveTo(x, 0);
     ctx.lineTo(x, H);
     ctx.stroke();
   }
-
   for (let y = 0; y < H; y += 40) {
     ctx.beginPath();
     ctx.moveTo(0, y);
@@ -421,4 +419,46 @@ function initMap() {
       [0.9, 0.6],
     ],
   ];
+
+  roads.forEach((road) => {
+    ctx.strokeStyle = "rgba(0,255,180,0.07)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(road[0][0] * W, road[0][1] * H);
+    ctx.lineTo(road[1][0] * W, road[1][1] * H);
+    ctx.stroke();
+  });
+}
+
+function initParticles() {
+  const canvas = document.getElementById("particles");
+  const wrapper = document.getElementById("map-wrapper");
+  canvas.width = wrapper.offsetWidth;
+  canvas.height = wrapper.offsetHeight;
+  const ctx = canvas.getContext("2d");
+
+  const dots = Array.from({ length: 60 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1 + 0.3,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    o: Math.random() * 0.3 + 0.05,
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    dots.forEach((dot) => {
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,255,180,${dot.o})`;
+      ctx.fill();
+      dot.x += dot.vx;
+      dot.y += dot.vy;
+      if (dot.x < 0 || dot.x > canvas.width) dot.vx *= -1;
+      if (dot.y < 0 || dot.y > canvas.height) dot.vy *= -1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
 }

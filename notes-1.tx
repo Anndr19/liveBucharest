@@ -6,40 +6,81 @@
 // get API key for google maps and add map to the right panel - insights for busy hours, directions, photos, reviews, etc. (can be added later as a stretch goal)
 
 
-document.getElementById("b4").classList.add("on"); 
+function initMap() {
+  const canvas = document.getElementById("mapcanvas");
+  const wrapper = document.getElementById("map-wrapper");
+  canvas.width = wrapper.offsetWidth;
+  canvas.height = wrapper.offsetHeight;
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width;
+  const H = canvas.height;
 
-    <div id="intro">
-      <div class="scan-line"></div>
-      <div class="glitch-title">BUCHAREST</div>
-      <div class="sub-text">CITY EXPLORER v2.0</div>
-      <div class="boot-lines">
-        <div class="boot-line" id="b0">&gt; INITIALIZING MAP ENGINE...</div>
-        <div class="boot-line" id="b1">&gt; LOADING LANDMARK DATABASE...</div>
-        <div class="boot-line" id="b2">&gt; CALIBRATING COORDINATES...</div>
-        <div class="boot-line" id="b3">&gt; SCANNING CITY GRID...</div>
-        <div class="boot-line" id="b4">&gt; ALL SYSTEMS READY.</div>
-      </div>
-      <button class="enter-btn" id="enterbtn">[ ENTER CITY ]</button>
-    </div>
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, W, H);
 
-     <!-- TOP NAV -->
-    <nav class="top-nav hidden">
-      <div class="nav-logo">LIVEBUCHAREST</div>
-      <div class="nav-links">
-        <span class="active">Map</span>
-        <span>Explore</span>
-        <span>Favorites</span>
-      </div>
-    </nav>
+  ctx.strokeStyle = "rgba(0,255,180,0.04)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 40) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, H);
+    ctx.stroke();
+  }
+  for (let y = 0; y < H; y += 40) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(W, y);
+    ctx.stroke();
+  }
 
-    document.querySelector(".top-nav")
+  const roads = [
+    [[0.2, 0.5],[0.8, 0.5]],
+    [[0.5, 0.1],[0.5, 0.9]],
+    [[0.1, 0.2],[0.9, 0.75]],
+    [[0.15, 0.8],[0.85, 0.25]],
+    [[0.3, 0.1],[0.7, 0.9]],
+    [[0.1, 0.4],[0.9, 0.6]],
+  ];
 
-
-function enterApp() {
-document.getElementById("intro").classList.add("hidden");
-document.querySelector(".top-nav").classList.remove("hidden");
-document.getElementById("app").classList.remove("hidden");
+  roads.forEach((road) => {
+    ctx.strokeStyle = "rgba(0,255,180,0.07)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(road[0][0] * W, road[0][1] * H);
+    ctx.lineTo(road[1][0] * W, road[1][1] * H);
+    ctx.stroke();
+  });
 }
-document.getElementById("enterbtn").addEventListener("click", () => {
-enterApp();
-});
+
+function initParticles() {
+  const canvas = document.getElementById("particles");
+  const wrapper = document.getElementById("map-wrapper");
+  canvas.width = wrapper.offsetWidth;
+  canvas.height = wrapper.offsetHeight;
+  const ctx = canvas.getContext("2d");
+
+  const dots = Array.from({ length: 60 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1 + 0.3,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    o: Math.random() * 0.3 + 0.05,
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    dots.forEach((dot) => {
+      ctx.beginPath();
+      ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,255,180,${dot.o})`;
+      ctx.fill();
+      dot.x += dot.vx;
+      dot.y += dot.vy;
+      if (dot.x < 0 || dot.x > canvas.width) dot.vx *= -1;
+      if (dot.y < 0 || dot.y > canvas.height) dot.vy *= -1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}

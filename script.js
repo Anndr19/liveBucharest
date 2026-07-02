@@ -392,10 +392,8 @@ function initMap() {
   const W = canvas.width;
   const H = canvas.height;
 
-  ctx.fillStyle = "#000";
-  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = "rgba(255,255,255,0.05)";
 
-  ctx.strokeStyle = "rgba(0,255,180,0.04)";
   ctx.lineWidth = 1;
   for (let x = 0; x < W; x += 40) {
     ctx.beginPath();
@@ -438,7 +436,7 @@ function initMap() {
   ];
 
   roads.forEach((road) => {
-    ctx.strokeStyle = "rgba(0,255,180,0.07)";
+    ctx.strokeStyle = "rgba(255,255,255,0.08)";
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(road[0][0] * W, road[0][1] * H);
@@ -468,7 +466,7 @@ function initParticles() {
     dots.forEach((dot) => {
       ctx.beginPath();
       ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,255,180,${dot.o})`;
+      ctx.fillStyle = `rgba(255,255,255,${dot.o})`;
       ctx.fill();
       dot.x += dot.vx;
       dot.y += dot.vy;

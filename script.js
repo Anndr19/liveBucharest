@@ -336,21 +336,37 @@ const places = [
 ];
 
 // boot sequence
+
+const steps = [
+  "Initializing map engine",
+  "Loading landmark database",
+  "Calibrating navigation",
+  "Synchronizing satellites",
+  "System ready",
+];
+
+let s = 0;
+
+const lt = document.getElementById("ltext");
+const enterBtn = document.getElementById("enterbtn");
+
+// show first step
+lt.textContent = steps[s];
+
+const iv = setInterval(() => {
+  s++;
+
+  if (s < steps.length) {
+    lt.textContent = steps[s];
+  } else {
+    clearInterval(iv);
+  }
+}, 700);
+
+// show enter button after loading completes
 setTimeout(() => {
-  document.getElementById("b0").classList.add("on");
-  setTimeout(() => {
-    document.getElementById("b1").classList.add("on");
-  }, 200);
-  setTimeout(() => {
-    document.getElementById("b2").classList.add("on");
-  }, 400);
-  setTimeout(() => {
-    document.getElementById("b3").classList.add("on");
-  }, 600);
-  setTimeout(() => {
-    document.getElementById("b4").classList.add("on");
-  }, 800);
-}, 2000);
+  enterBtn.classList.add("ready");
+}, 3900);
 
 // enter button
 document.getElementById("enterbtn").addEventListener("click", () => {

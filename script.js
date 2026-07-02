@@ -515,7 +515,14 @@ function showCard(index) {
   document.getElementById("c-time").textContent = landmark.bestTime;
   document.getElementById("c-cat").textContent = landmark.type;
   document.getElementById("c-icon").className = `ti ${landmark.icon}`;
-  document.getElementById("c-stars").textContent =
-    "★".repeat(landmark.stars) + "☆".repeat(5 - landmark.stars);
-  document.getElementById("disc-card").classList.add("show");
+  document.getElementById("panel").classList.add("open");
+  document.getElementById("map-wrapper").classList.add("shifted");
 }
+
+function closePanel() {
+  document.getElementById("panel").classList.remove("open");
+  document.getElementById("map-wrapper").classList.remove("shifted");
+}
+document.getElementById("pclose").addEventListener("click", () => {
+  closePanel();
+});

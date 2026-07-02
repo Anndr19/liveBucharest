@@ -1,9 +1,13 @@
 // crowd level animation busy, pulsating when it's busy
-// update color scheme
+// update color scheme (liquid glass, smooth animations, aurora/midnight backround)
+// right panel animation
+// pulsating landmarks on map
+// new boot sequence
 // update map
 // update filter buttons UI
 // think about explore option and favorite places (log in with google account, save favorites in local storage or backend?)
 // get API key for google maps and add map to the right panel - insights for busy hours, directions, photos, reviews, etc. (can be added later as a stretch goal)
+// how many discovered landmarks (google acc link) - achievements
 
 
 const steps = [

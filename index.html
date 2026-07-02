@@ -120,45 +120,48 @@
           <p>Select a place to see details</p>
         </div>
       </div>
-      <!-- DISCOVERY CARD -->
-      <div id="card-overlay">
-        <div id="disc-card">
-          <button id="close-btn">×</button>
-          <div class="card-top">
-            <div class="card-type" id="c-type">CULTURE</div>
-            <div class="card-stars" id="c-stars">★★★★★</div>
+
+      <!-- SLIDING DETAIL PANEL -->
+
+      <div id="panel">
+        <button class="panel-close" id="pclose" aria-label="Close">
+          &times;
+        </button>
+        <div class="panel-hero">
+          <div class="panel-badge" id="c-type">CULTURE</div>
+          <div class="panel-hero-glass">
+            <i id="c-icon" class="ti ti-building-arch"></i>
           </div>
-          <div class="card-body">
-            <div class="card-icon-row">
-              <div class="card-big-icon">
-                <i id="c-icon" class="ti ti-building-arch"></i>
-              </div>
-              <div>
-                <div class="card-name" id="c-name">Parliament Palace</div>
-                <div class="card-area" id="c-area">SECTOR 5</div>
+          <div>
+            <div class="panel-name" id="c-name">Parliament Palace</div>
+            <div class="panel-area" id="c-area">Sector 5</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-desc" id="c-desc">Description here.</div>
+          <div class="stat-grid">
+            <div class="stat-tile">
+              <div class="lbl">Rating</div>
+              <div class="val">
+                <i class="ti ti-star"></i><span id="c-rating">4.8</span>
               </div>
             </div>
-            <div class="card-desc" id="c-desc">Description goes here.</div>
-            <div class="card-stats">
-              <div class="stat-box">
-                <div class="stat-lbl">RATING</div>
-                <div class="stat-val" id="c-rating">4.8</div>
-              </div>
-              <div class="stat-box">
-                <div class="stat-lbl">CROWD</div>
-                <div class="stat-val" id="c-crowd">HIGH</div>
-              </div>
-              <div class="stat-box">
-                <div class="stat-lbl">BEST TIME</div>
-                <div class="stat-val" id="c-time">MORNING</div>
-              </div>
-              <div class="stat-box">
-                <div class="stat-lbl">CATEGORY</div>
-                <div class="stat-val" id="c-cat">CULTURE</div>
-              </div>
+            <div class="stat-tile">
+              <div class="lbl">Crowd</div>
+              <div class="val" id="c-crowd">Medium</div>
             </div>
-            <button class="card-btn">[ EXPLORE NEARBY ]</button>
+            <div class="stat-tile">
+              <div class="lbl">Best time</div>
+              <div class="val" id="c-time">Morning</div>
+            </div>
+            <div class="stat-tile">
+              <div class="lbl">Category</div>
+              <div class="val" id="c-cat">Landmark</div>
+            </div>
           </div>
+          <button class="panel-btn">
+            <i class="ti ti-map-pin"></i> Explore nearby
+          </button>
         </div>
       </div>
     </div>

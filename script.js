@@ -480,6 +480,12 @@ function initLandmarks() {
     landmark.style.left = `${pos[0]}%`;
     landmark.style.top = `${pos[1]}%`;
   });
+
+  for (let i = 0; i < 8; i++) {
+    document.getElementById(`lm${i}`).addEventListener("click", () => {
+      showCard(i);
+    });
+  }
 }
 
 //lm${i}`)
@@ -498,10 +504,4 @@ function showCard(index) {
   document.getElementById("c-stars").textContent =
     "★".repeat(landmark.stars) + "☆".repeat(5 - landmark.stars);
   document.getElementById("disc-card").classList.add("show");
-}
-
-for (let i = 0; i < 8; i++) {
-  document.getElementById(`lm${i}`).addEventListener("click", () => {
-    showCard(i);
-  });
 }

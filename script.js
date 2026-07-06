@@ -108,6 +108,8 @@ const places = [
       "Iconic 1879 beer hall with stunning Neo-Gothic interior. A Bucharest landmark.",
     bestTime: "Weekday lunch",
     gradient: "linear-gradient(135deg, #2a1008, #8B4513)",
+    x: 58,
+    y: 46,
   },
   {
     name: "Nomad Skybar",
@@ -121,6 +123,8 @@ const places = [
       "Rooftop bar with stunning city views and signature cocktails.",
     bestTime: "Weekdays after 22:00",
     gradient: "linear-gradient(135deg, #1a1020, #4a2060)",
+    x: 52,
+    y: 50,
   },
   {
     name: "Origo Coffee",
@@ -134,6 +138,8 @@ const places = [
       "Specialty coffee roaster in the heart of the city. Best flat white in Bucharest.",
     bestTime: "Weekday mornings",
     gradient: "linear-gradient(135deg, #1a0f00, #5c3d1e)",
+    x: 48,
+    y: 38,
   },
   {
     name: "Cișmigiu Park",
@@ -147,6 +153,8 @@ const places = [
       "Bucharest's oldest park. Perfect for a morning walk or a lazy afternoon.",
     bestTime: "Weekend mornings",
     gradient: "linear-gradient(135deg, #0a1f0a, #1a4a1a)",
+    x: 26,
+    y: 52,
   },
   {
     name: "Cărtureşti Carusel",
@@ -160,6 +168,8 @@ const places = [
       "The most beautiful bookstore in Romania. Six floors of books, art and coffee.",
     bestTime: "Weekday afternoons",
     gradient: "linear-gradient(135deg, #0a0a1f, #1a1a4a)",
+    x: 46,
+    y: 44,
   },
   {
     name: "Universitate Square",
@@ -173,6 +183,8 @@ const places = [
       "The beating heart of Bucharest. Great for people watching and evening walks.",
     bestTime: "Weekend evenings",
     gradient: "linear-gradient(135deg, #1a1000, #4a3800)",
+    x: 50,
+    y: 42,
   },
 
   // ===== SECTOR 1 =====
@@ -188,6 +200,8 @@ const places = [
       "A peaceful green escape in the upscale Floreasca neighborhood.",
     bestTime: "Weekday mornings",
     gradient: "linear-gradient(135deg, #0a1f0a, #1a4a1a)",
+    x: 36,
+    y: 20,
   },
   {
     name: "Kane Coffee",
@@ -201,6 +215,8 @@ const places = [
       "Minimalist specialty coffee shop loved by creatives and remote workers.",
     bestTime: "Weekday mornings",
     gradient: "linear-gradient(135deg, #1a0f00, #5c3d1e)",
+    x: 38,
+    y: 30,
   },
   {
     name: "Diplomats Club",
@@ -214,6 +230,8 @@ const places = [
       "Upscale cocktail bar in the embassy district. Dress to impress.",
     bestTime: "Friday evenings",
     gradient: "linear-gradient(135deg, #1a1020, #4a2060)",
+    x: 44,
+    y: 18,
   },
   {
     name: "Dorobanți Food Market",
@@ -227,6 +245,8 @@ const places = [
       "Upscale food market with local produce and international cuisine.",
     bestTime: "Weekend afternoons",
     gradient: "linear-gradient(135deg, #2a1008, #8B4513)",
+    x: 42,
+    y: 26,
   },
   {
     name: "Herăstrău Park",
@@ -240,6 +260,8 @@ const places = [
       "Bucharest's largest park surrounding a beautiful lake. Magic at sunset.",
     bestTime: "Weekend evenings",
     gradient: "linear-gradient(135deg, #1a1000, #4a3800)",
+    x: 40,
+    y: 24,
   },
   {
     name: "Shift Pub",
@@ -253,6 +275,8 @@ const places = [
       "Cozy pub with fast wifi, great coffee and even better beer after 5pm.",
     bestTime: "Weekday afternoons",
     gradient: "linear-gradient(135deg, #0a0a1f, #1a1a4a)",
+    x: 34,
+    y: 34,
   },
 
   // ===== SECTOR 2 =====
@@ -267,6 +291,8 @@ const places = [
     description: "Hidden gem lake park in Sector 2. Locals only, no tourists.",
     bestTime: "Weekday mornings",
     gradient: "linear-gradient(135deg, #0a1f0a, #1a4a1a)",
+    x: 72,
+    y: 34,
   },
   {
     name: "Vatra Coffee",
@@ -280,6 +306,8 @@ const places = [
       "Neighborhood specialty coffee shop with a warm, homey atmosphere.",
     bestTime: "Weekend mornings",
     gradient: "linear-gradient(135deg, #1a0f00, #5c3d1e)",
+    x: 62,
+    y: 40,
   },
   {
     name: "Grădina Florilor",
@@ -293,6 +321,8 @@ const places = [
       "A romantic garden restaurant tucked away from the city noise.",
     bestTime: "Weekend evenings",
     gradient: "linear-gradient(135deg, #1a1000, #4a3800)",
+    x: 66,
+    y: 48,
   },
   {
     name: "Obor Market",
@@ -306,6 +336,8 @@ const places = [
       "Bucharest's most authentic market. Raw, real, and full of character.",
     bestTime: "Saturday mornings",
     gradient: "linear-gradient(135deg, #0a0a1f, #1a1a4a)",
+    x: 60,
+    y: 56,
   },
   {
     name: "Lacrimi și Sfinți",
@@ -319,6 +351,8 @@ const places = [
       "Creative Romanian cuisine in a stunning setting. Book in advance.",
     bestTime: "Weekday evenings",
     gradient: "linear-gradient(135deg, #2a1008, #8B4513)",
+    x: 58,
+    y: 60,
   },
   {
     name: "Fabrica Club",
@@ -332,8 +366,12 @@ const places = [
       "Bucharest's legendary club in an old factory. Electronic music all night.",
     bestTime: "Friday after midnight",
     gradient: "linear-gradient(135deg, #1a1020, #4a2060)",
+    x: 68,
+    y: 60,
   },
 ];
+
+const discovered = new Set();
 
 // boot sequence
 
@@ -381,6 +419,7 @@ function enterApp() {
   initMap();
   initParticles();
   initLandmarks();
+  initPlaces();
 }
 
 function initMap() {
@@ -517,6 +556,8 @@ function showCard(index) {
   document.getElementById("c-icon").className = `ti ${landmark.icon}`;
   document.getElementById("panel").classList.add("open");
   document.getElementById("map-wrapper").classList.add("shifted");
+  discovered.add(index);
+  document.getElementById("disc-count").textContent = discovered.size;
 }
 
 function closePanel() {
@@ -526,3 +567,26 @@ function closePanel() {
 document.getElementById("pclose").addEventListener("click", () => {
   closePanel();
 });
+
+function initPlaces() {
+  const catColors = {
+    Coffee: "#c9a06b",
+    Food: "#e0765a",
+    Drinks: "#a879e0",
+    Parks: "#5dca8f",
+    Culture: "#6ea8e0",
+    "Date Spot": "#e07ba8",
+    "Work Friendly": "#8a95e0",
+  };
+
+  const wrapper = document.getElementById("map-wrapper");
+
+  places.forEach((place) => {
+    const dot = document.createElement("div");
+    dot.className = "place";
+    dot.style.left = `${place.x}%`;
+    dot.style.top = `${place.y}%`;
+    dot.innerHTML = `<div class="place-dot" style="background:${catColors[place.category]}"></div>`;
+    wrapper.appendChild(dot);
+  });
+}

@@ -8,35 +8,3 @@
 // think about explore option and favorite places (log in with google account, save favorites in local storage or backend?)
 // get API key for google maps and add map to the right panel - insights for busy hours, directions, photos, reviews, etc. (can be added later as a stretch goal)
 // how many discovered landmarks (google acc link) - achievements
-
-
-const steps = [
-  "Initializing map engine",
-  "Loading landmark database",
-  "Calibrating navigation",
-  "Synchronizing satellites",
-  "System ready"
-];
-
-let s = 0;
-
-const lt = document.getElementById("ltext");
-const enterBtn = document.getElementById("enterBtn");
-
-// show first step
-lt.textContent = steps[s];
-
-const iv = setInterval(() => {
-  s++;
-
-  if (s < steps.length) {
-    lt.textContent = steps[s];
-  } else {
-    clearInterval(iv);
-  }
-}, 700);
-
-// show enter button after loading completes
-setTimeout(() => {
-  enterBtn.classList.add("ready");
-}, 3900);

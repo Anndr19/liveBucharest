@@ -1,10 +1,37 @@
-// crowd level animation busy, pulsating when it's busy
-// update color scheme (liquid glass, smooth animations, aurora/midnight backround)
-// right panel animation
+// DONE
+// update color scheme (liquid glass, aurora/midnight background)
+// new boot sequence (glass intro, loading bar, enter button)
+// update map (aurora background, white grid, roads, particles)
 // pulsating landmarks on map
-// new boot sequence
-// update map
-// update filter buttons UI
-// think about explore option and favorite places (log in with google account, save favorites in local storage or backend?)
-// get API key for google maps and add map to the right panel - insights for busy hours, directions, photos, reviews, etc. (can be added later as a stretch goal)
-// how many discovered landmarks (google acc link) - achievements
+// right panel animation (slides in, map shifts left)
+// bigger glass landmark icons
+// discovery counter with Set (no duplicates)
+// place dots on map, colored by category
+// search bar and filter pills UI (visual only, no logic yet)
+// connected to GitHub, committing regularly
+
+
+// to do, local phase
+// make filter buttons work (show only that category, fade the rest)
+// make search bar work (highlight places by name or category)
+// make place dots clickable (open panel like landmarks do)
+// crowd level animation, pulsating when busy, calm when chill
+// favorites, save in local storage so they survive refresh
+// favorites view, make the Favorites tab show saved places
+// achievements based on discovered count (3 landmarks, all 8, first favorite)
+// explore nearby button, open Google Maps directions (just a link, no API)
+// fix 2 broken landmark icons (ti-building-arch, ti-arch)
+// spread place dots more naturally, soften hover labels
+
+
+// to do, product phase, stretch goals for later
+// swap drawn map for real Leaflet and OpenStreetMap map
+// search real places with Nominatim (moves map to result)
+// fill map with real places via Overpass API
+// busy hours from BestTime.app (free test account, paid at scale)
+// backend with Node.js and Express (hide API keys)
+// database for users, favorites, achievements (Supabase, PostgreSQL, MongoDB)
+// real Google login (Supabase Auth, Auth0, Clerk)
+// host frontend on Netlify or Vercel, backend on Render or Railway
+// money model (freemium, venue partnerships, subscription)
+// GDPR, privacy policy, terms of service (needed in EU once storing data)

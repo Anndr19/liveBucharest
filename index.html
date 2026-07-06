@@ -20,6 +20,13 @@
         <div class="loader-text" id="ltext">Initializing map engine</div>
       </div>
       <button class="enter-btn" id="enterbtn">Enter city</button>
+      <button
+        class="enter-btn"
+        id="skipbtn"
+        style="margin-top: 12px; opacity: 0.6; pointer-events: all"
+      >
+        Skip intro
+      </button>
     </div>
 
     <!-- TOP NAV -->
@@ -39,6 +46,21 @@
         <div id="map-wrapper">
           <canvas id="mapcanvas"></canvas>
           <canvas id="particles"></canvas>
+
+          <div id="controls">
+            <div class="search-bar">
+              <i class="ti ti-search"></i>
+              <input type="text" id="search" placeholder="Search places..." />
+            </div>
+            <div class="filter-pills">
+              <button class="pill active" data-cat="All">All</button>
+              <button class="pill" data-cat="Coffee">Coffee</button>
+              <button class="pill" data-cat="Food">Food</button>
+              <button class="pill" data-cat="Drinks">Drinks</button>
+              <button class="pill" data-cat="Parks">Parks</button>
+              <button class="pill" data-cat="Culture">Culture</button>
+            </div>
+          </div>
 
           <div class="landmark" id="lm0" data-index="0">
             <div class="lm-pulse"></div>

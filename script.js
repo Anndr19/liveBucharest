@@ -411,6 +411,10 @@ document.getElementById("enterbtn").addEventListener("click", () => {
   enterApp();
 });
 
+document.getElementById("skipbtn").addEventListener("click", () => {
+  enterApp();
+});
+
 // enterApp function
 function enterApp() {
   document.getElementById("intro").classList.add("hidden");
@@ -584,9 +588,35 @@ function initPlaces() {
   places.forEach((place) => {
     const dot = document.createElement("div");
     dot.className = "place";
+    dot.dataset.category = place.category;
     dot.style.left = `${place.x}%`;
     dot.style.top = `${place.y}%`;
     dot.innerHTML = `<div class="place-dot" style="background:${catColors[place.category]}"></div>`;
     wrapper.appendChild(dot);
   });
 }
+
+// filter buttons
+
+// filter buttons
+const pills = document.querySelectorAll(".pill");
+
+pills.forEach((pill) => {
+  pill.addEventListener("click", () => {
+    //  move the active highlight to the clicked pill
+    pills.forEach((p) => p.classList.remove("active"));
+    pill.classList.add("active");
+
+    // get the category from the clicked pill
+    const category = pill.dataset.cat;
+
+    // show or fade each place dot
+    document.querySelectorAll(".place").forEach((dot) => {
+      if (category === "All" || dot.dataset.category === category) {
+        dot.classList.remove("dim");
+      } else {
+        dot.classList.add("dim");
+      }
+    });
+  });
+});
